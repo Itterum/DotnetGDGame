@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d204ctvmfuuyn"
-path="res://.godot/imported/flooring.png-32a43fce57701050ee5cfcc591a2e7f3.ctex"
+path="res://.godot/imported/flooring.png-1099dd32284be237a5c62f3b6b2ada2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mystic_woods_free_2.2/sprites/tilesets/floors/flooring.png"
-dest_files=["res://.godot/imported/flooring.png-32a43fce57701050ee5cfcc591a2e7f3.ctex"]
+source_file="res://src/sprites/tilesets/floors/flooring.png"
+dest_files=["res://.godot/imported/flooring.png-1099dd32284be237a5c62f3b6b2ada2a.ctex"]
 
 [params]
 

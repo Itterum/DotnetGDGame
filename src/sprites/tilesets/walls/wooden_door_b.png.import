@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wrscqj4pvpkl"
-path="res://.godot/imported/wooden_door_b.png-ca3fb4fd83a8287b8e01ea8fbf7eb1e9.ctex"
+path="res://.godot/imported/wooden_door_b.png-17a32f500bef2528a67354f440627688.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mystic_woods_free_2.2/sprites/tilesets/walls/wooden_door_b.png"
-dest_files=["res://.godot/imported/wooden_door_b.png-ca3fb4fd83a8287b8e01ea8fbf7eb1e9.ctex"]
+source_file="res://src/sprites/tilesets/walls/wooden_door_b.png"
+dest_files=["res://.godot/imported/wooden_door_b.png-17a32f500bef2528a67354f440627688.ctex"]
 
 [params]
 

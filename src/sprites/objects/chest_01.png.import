@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4yih7aqux8b6"
-path="res://.godot/imported/chest_01.png-170e623fb9af2508c32fe5c5921cfd2d.ctex"
+path="res://.godot/imported/chest_01.png-f6b67072f5a38f0b7cc656b5a2bd4390.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mystic_woods_free_2.2/sprites/objects/chest_01.png"
-dest_files=["res://.godot/imported/chest_01.png-170e623fb9af2508c32fe5c5921cfd2d.ctex"]
+source_file="res://src/sprites/objects/chest_01.png"
+dest_files=["res://.godot/imported/chest_01.png-f6b67072f5a38f0b7cc656b5a2bd4390.ctex"]
 
 [params]
 

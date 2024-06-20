@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl8cp321enicn"
-path="res://.godot/imported/rock_in_water_01.png-d361f5e9f384814f48b188b7c117c1e8.ctex"
+path="res://.godot/imported/rock_in_water_01.png-fafe3e0a9d6441c13d6e9011f8862ff7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mystic_woods_free_2.2/sprites/objects/rock_in_water_01.png"
-dest_files=["res://.godot/imported/rock_in_water_01.png-d361f5e9f384814f48b188b7c117c1e8.ctex"]
+source_file="res://src/sprites/objects/rock_in_water_01.png"
+dest_files=["res://.godot/imported/rock_in_water_01.png-fafe3e0a9d6441c13d6e9011f8862ff7.ctex"]
 
 [params]
 

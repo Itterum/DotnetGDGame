@@ -1,52 +1,52 @@
 [gd_scene load_steps=11 format=3 uid="uid://c8xiw6gme625k"]
 
 [ext_resource type="Script" path="res://src/scripts/Mob.cs" id="1_upjod"]
-[ext_resource type="Texture2D" uid="uid://c6iu1dqe88btu" path="res://src/mystic_woods_free_2.2/sprites/characters/slime.png" id="2_ygvvt"]
+[ext_resource type="Texture2D" uid="uid://c6iu1dqe88btu" path="res://src/sprites/characters/slime.png" id="2_77bhn"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rcjpo"]
-atlas = ExtResource("2_ygvvt")
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2tbc"]
+atlas = ExtResource("2_77bhn")
 region = Rect2(0, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mva7f"]
-atlas = ExtResource("2_ygvvt")
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4qjb"]
+atlas = ExtResource("2_77bhn")
 region = Rect2(32, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wh3v6"]
-atlas = ExtResource("2_ygvvt")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqrlb"]
+atlas = ExtResource("2_77bhn")
 region = Rect2(64, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rdxhh"]
-atlas = ExtResource("2_ygvvt")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuxqn"]
+atlas = ExtResource("2_77bhn")
 region = Rect2(96, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7shop"]
-atlas = ExtResource("2_ygvvt")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr44e"]
+atlas = ExtResource("2_77bhn")
 region = Rect2(128, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hm2k6"]
-atlas = ExtResource("2_ygvvt")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tga2"]
+atlas = ExtResource("2_77bhn")
 region = Rect2(160, 128, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8bjut"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rcjpo")
+"texture": SubResource("AtlasTexture_k2tbc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mva7f")
+"texture": SubResource("AtlasTexture_i4qjb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wh3v6")
+"texture": SubResource("AtlasTexture_vqrlb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rdxhh")
+"texture": SubResource("AtlasTexture_xuxqn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7shop")
+"texture": SubResource("AtlasTexture_xr44e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hm2k6")
+"texture": SubResource("AtlasTexture_3tga2")
 }],
 "loop": true,
 "name": &"slime",

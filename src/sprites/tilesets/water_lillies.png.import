@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccdieno1qfkd2"
-path="res://.godot/imported/water_lillies.png-3cfda1bb7fec1c776631557514a4ea93.ctex"
+path="res://.godot/imported/water_lillies.png-b380f06f488eadc45610fda43d16cce5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mystic_woods_free_2.2/sprites/tilesets/water_lillies.png"
-dest_files=["res://.godot/imported/water_lillies.png-3cfda1bb7fec1c776631557514a4ea93.ctex"]
+source_file="res://src/sprites/tilesets/water_lillies.png"
+dest_files=["res://.godot/imported/water_lillies.png-b380f06f488eadc45610fda43d16cce5.ctex"]
 
 [params]
 

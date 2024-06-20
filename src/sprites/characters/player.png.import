@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cce2f8ls0wpn5"
-path="res://.godot/imported/player.png-6a98e20dc22eda5c0ea40f4074017a2d.ctex"
+path="res://.godot/imported/player.png-6e1fc7f6c7ab6279277dd6c549a21817.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/mystic_woods_free_2.2/sprites/characters/player.png"
-dest_files=["res://.godot/imported/player.png-6a98e20dc22eda5c0ea40f4074017a2d.ctex"]
+source_file="res://src/sprites/characters/player.png"
+dest_files=["res://.godot/imported/player.png-6e1fc7f6c7ab6279277dd6c549a21817.ctex"]
 
 [params]
 
