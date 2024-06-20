@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://c8xiw6gme625k"]
+
+[ext_resource type="Script" path="res://src/scripts/Mob.cs" id="1_upjod"]
+[ext_resource type="Texture2D" uid="uid://c6iu1dqe88btu" path="res://src/mystic_woods_free_2.2/sprites/characters/slime.png" id="2_ygvvt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcjpo"]
+atlas = ExtResource("2_ygvvt")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mva7f"]
+atlas = ExtResource("2_ygvvt")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh3v6"]
+atlas = ExtResource("2_ygvvt")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdxhh"]
+atlas = ExtResource("2_ygvvt")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7shop"]
+atlas = ExtResource("2_ygvvt")
+region = Rect2(128, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm2k6"]
+atlas = ExtResource("2_ygvvt")
+region = Rect2(160, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bjut"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcjpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mva7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wh3v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdxhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7shop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm2k6")
+}],
+"loop": true,
+"name": &"slime",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tkgdb"]
+radius = 25.3333
+height = 74.6667
+
+[node name="Mob" type="RigidBody2D"]
+scale = Vector2(0.75, 0.75)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_upjod")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_8bjut")
+animation = &"slime"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tkgdb")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
