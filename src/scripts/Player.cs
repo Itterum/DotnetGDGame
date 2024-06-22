@@ -19,6 +19,7 @@ public partial class Player : Area2D
     private AnimatedSprite2D _animatedSprite2D;
     private CollisionShape2D _collisionShape2D;
     private bool _isDashing = false;
+    private bool _isDead = false;
     private float _dashTime = 0;
     private Vector2 _dashDirection = Vector2.Zero;
     private Vector2 _lastDirection = Vector2.Right;
@@ -33,6 +34,11 @@ public partial class Player : Area2D
 
     public override void _Process(double delta)
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         if (_isDashing)
         {
             _dashTime -= (float)delta;
@@ -76,7 +82,7 @@ public partial class Player : Area2D
         );
     }
 
-    private Vector2 GetInputVelocity()
+    private static Vector2 GetInputVelocity()
     {
         Vector2 velocity = Vector2.Zero;
 
@@ -165,9 +171,26 @@ public partial class Player : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
+        GD.Print($"Collision detected with: {body.Name}");
+
+        if (body is Mob)
+        {
+            GD.Print("Collision detected with mob!");
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        _isDead = true;
+        _animatedSprite2D.Animation = "death";
+        _animatedSprite2D.Play();
+    }
+
+    private void OnDeathAnimationFinished()
+    {
         Hide();
         EmitSignal(nameof(HitEventHandler));
-        _collisionShape2D.SetDeferred(nameof(CollisionShape2D.Disabled), true);
     }
 
     public void Start(Vector2 position)

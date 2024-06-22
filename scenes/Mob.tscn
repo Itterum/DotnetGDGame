@@ -75,5 +75,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_tkgdb")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visibility_layer = 0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
