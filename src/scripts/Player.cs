@@ -171,11 +171,8 @@ public partial class Player : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
-        GD.Print($"Collision detected with: {body.Name}");
-
-        if (body is Mob)
+        if (!_isDead && body is Mob)
         {
-            GD.Print("Collision detected with mob!");
             Die();
         }
     }
@@ -183,14 +180,10 @@ public partial class Player : Area2D
     public void Die()
     {
         _isDead = true;
+        _collisionShape2D.Disabled = true;
         _animatedSprite2D.Animation = "death";
         _animatedSprite2D.Play();
-    }
-
-    private void OnDeathAnimationFinished()
-    {
-        Hide();
-        EmitSignal(nameof(HitEventHandler));
+        EmitSignal(SignalName.Hit);
     }
 
     public void Start(Vector2 position)
