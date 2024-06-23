@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Player : Area2D
 {
@@ -15,14 +14,15 @@ public partial class Player : Area2D
     [Signal]
     public delegate void HitEventHandler();
 
-    private Vector2 _screenSize;
-    private AnimatedSprite2D _animatedSprite2D;
-    private CollisionShape2D _collisionShape2D;
     private bool _isDashing = false;
     private bool _isDead = false;
     private float _dashTime = 0;
+
+    private Vector2 _screenSize;
     private Vector2 _dashDirection = Vector2.Zero;
     private Vector2 _lastDirection = Vector2.Right;
+    private AnimatedSprite2D _animatedSprite2D;
+    private CollisionShape2D _collisionShape2D;
 
     public override void _Ready()
     {
@@ -34,51 +34,59 @@ public partial class Player : Area2D
 
     public override void _Process(double delta)
     {
-        if (_isDead)
-        {
-            return;
-        }
+        if (_isDead) return;
 
         if (_isDashing)
         {
-            _dashTime -= (float)delta;
-            if (_dashTime <= 0)
-            {
-                _isDashing = false;
-                _animatedSprite2D.Stop();
-            }
-            else
-            {
-                Position += _dashDirection * DashSpeed * (float)delta;
-                Position = new Vector2(
-                    x: Mathf.Clamp(Position.X, 0, _screenSize.X),
-                    y: Mathf.Clamp(Position.Y, 0, _screenSize.Y)
-                );
-                return;
-            }
+            UpdateDash(delta);
+            return;
         }
 
         Vector2 velocity = GetInputVelocity();
+
         if (velocity != Vector2.Zero)
         {
             _lastDirection = velocity;
-        }
-        UpdateAnimation(velocity);
 
-        if (Input.IsActionJustPressed("dash"))
-        {
-            StartDash(velocity);
-        }
+            if (Input.IsActionJustPressed("dash"))
+            {
+                StartDash(velocity);
+                return;
+            }
 
-        if (velocity != Vector2.Zero)
-        {
             velocity = velocity.Normalized() * Speed;
         }
 
+        UpdatePositionAndAnimation(velocity, delta);
+    }
+
+    private void UpdateDash(double delta)
+    {
+        _dashTime -= (float)delta;
+
+        if (_dashTime <= 0)
+        {
+            _isDashing = false;
+            _animatedSprite2D.Stop();
+        }
+        else
+        {
+            MovePlayer(_dashDirection * DashSpeed, delta);
+        }
+    }
+
+    private void UpdatePositionAndAnimation(Vector2 velocity, double delta)
+    {
+        UpdateAnimation(velocity);
+        MovePlayer(velocity, delta);
+    }
+
+    private void MovePlayer(Vector2 velocity, double delta)
+    {
         Position += velocity * (float)delta;
         Position = new Vector2(
-            x: Mathf.Clamp(Position.X, 0, _screenSize.X),
-            y: Mathf.Clamp(Position.Y, 0, _screenSize.Y)
+            Mathf.Clamp(Position.X, 0, _screenSize.X),
+            Mathf.Clamp(Position.Y, 0, _screenSize.Y)
         );
     }
 
@@ -86,25 +94,10 @@ public partial class Player : Area2D
     {
         Vector2 velocity = Vector2.Zero;
 
-        if (Input.IsActionPressed("move_right"))
-        {
-            velocity.X += 1;
-        }
-
-        if (Input.IsActionPressed("move_left"))
-        {
-            velocity.X -= 1;
-        }
-
-        if (Input.IsActionPressed("move_down"))
-        {
-            velocity.Y += 1;
-        }
-
-        if (Input.IsActionPressed("move_up"))
-        {
-            velocity.Y -= 1;
-        }
+        if (Input.IsActionPressed("move_right")) velocity.X += 1;
+        if (Input.IsActionPressed("move_left")) velocity.X -= 1;
+        if (Input.IsActionPressed("move_down")) velocity.Y += 1;
+        if (Input.IsActionPressed("move_up")) velocity.Y -= 1;
 
         return velocity;
     }
@@ -113,60 +106,73 @@ public partial class Player : Area2D
     {
         if (_isDashing)
         {
-            _animatedSprite2D.Animation = "dash";
-            _animatedSprite2D.Play();
+            PlayAnimation("dash");
             return;
         }
 
         if (velocity == Vector2.Zero)
         {
-            if (_lastDirection.X != 0)
-            {
-                _animatedSprite2D.Animation = "idle_side";
-                _animatedSprite2D.FlipH = _lastDirection.X < 0;
-            }
-            else if (_lastDirection.Y > 0)
-            {
-                _animatedSprite2D.Animation = "idle_down";
-            }
-            else if (_lastDirection.Y < 0)
-            {
-                _animatedSprite2D.Animation = "idle_up";
-            }
-            _animatedSprite2D.Play();
-            return;
+            UpdateIdleAnimation();
         }
+        else
+        {
+            UpdateMovementAnimation(velocity);
+        }
+    }
 
-        _animatedSprite2D.Play();
+    private void UpdateIdleAnimation()
+    {
+        if (_lastDirection.X != 0)
+        {
+            PlayAnimation("idle_side");
+            _animatedSprite2D.FlipH = _lastDirection.X < 0;
+        }
+        else if (_lastDirection.Y > 0)
+        {
+            PlayAnimation("idle_down");
+        }
+        else if (_lastDirection.Y < 0)
+        {
+            PlayAnimation("idle_up");
+        }
+    }
 
+    private void UpdateMovementAnimation(Vector2 velocity)
+    {
         if (velocity.X != 0)
         {
-            _animatedSprite2D.Animation = "walk";
-            _animatedSprite2D.FlipV = false;
+            PlayAnimation("walk");
             _animatedSprite2D.FlipH = velocity.X < 0;
+            _animatedSprite2D.FlipV = false;
         }
         else if (velocity.Y > 0)
         {
-            _animatedSprite2D.Animation = "down";
+            PlayAnimation("down");
+            _animatedSprite2D.FlipH = false;
+            _animatedSprite2D.FlipV = false;
         }
         else if (velocity.Y < 0)
         {
-            _animatedSprite2D.Animation = "up";
+            PlayAnimation("up");
+            _animatedSprite2D.FlipH = false;
+            _animatedSprite2D.FlipV = false;
         }
+    }
+
+    private void PlayAnimation(string animation)
+    {
+        _animatedSprite2D.Animation = animation;
+        _animatedSprite2D.Play();
     }
 
     private void StartDash(Vector2 direction)
     {
-        if (direction == Vector2.Zero)
-        {
-            return;
-        }
+        if (direction == Vector2.Zero) return;
 
         _isDashing = true;
         _dashTime = DashDuration;
         _dashDirection = direction.Normalized();
-        _animatedSprite2D.Animation = "dash";
-        _animatedSprite2D.Play();
+        PlayAnimation("dash");
     }
 
     private void OnBodyEntered(Node2D body)
@@ -177,7 +183,7 @@ public partial class Player : Area2D
         }
     }
 
-    public void Die()
+    private void Die()
     {
         _isDead = true;
         _collisionShape2D.CallDeferred("set_disabled", true);

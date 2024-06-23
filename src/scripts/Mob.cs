@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Mob : RigidBody2D
 {
@@ -44,19 +43,14 @@ public partial class Mob : RigidBody2D
 
         uint side = GD.Randi() % 4;
 
-        switch (side)
+        return side switch
         {
-            case 0:
-                return new Vector2(GD.Randf() * viewportRect.Size.X, 0);
-            case 1:
-                return new Vector2(GD.Randf() * viewportRect.Size.X, viewportRect.Size.Y);
-            case 2:
-                return new Vector2(0, GD.Randf() * viewportRect.Size.Y);
-            case 3:
-                return new Vector2(viewportRect.Size.X, GD.Randf() * viewportRect.Size.Y);
-            default:
-                return Vector2.Zero;
-        }
+            0 => new Vector2(GD.Randf() * viewportRect.Size.X, 0),
+            1 => new Vector2(GD.Randf() * viewportRect.Size.X, viewportRect.Size.Y),
+            2 => new Vector2(0, GD.Randf() * viewportRect.Size.Y),
+            3 => new Vector2(viewportRect.Size.X, GD.Randf() * viewportRect.Size.Y),
+            _ => Vector2.Zero,
+        };
     }
 
     private Vector2 GetDirectionToOppositeSide(Vector2 spawnPosition)
