@@ -180,7 +180,7 @@ public partial class Player : Area2D
     public void Die()
     {
         _isDead = true;
-        _collisionShape2D.Disabled = true;
+        _collisionShape2D.CallDeferred("set_disabled", true);
         _animatedSprite2D.Animation = "death";
         _animatedSprite2D.Play();
         EmitSignal(SignalName.Hit);
