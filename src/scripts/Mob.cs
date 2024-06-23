@@ -1,12 +1,14 @@
+using System;
 using Godot;
+
+namespace DotnetGDGame.scripts;
 
 public partial class Mob : RigidBody2D
 {
     private AnimatedSprite2D _animatedSprite2D;
     private string[] _mobTypes;
 
-    [Export]
-    public int Speed { get; set; } = 200;
+    [Export] private int Speed { get; set; } = 200;
 
     public override void _Ready()
     {
@@ -25,10 +27,10 @@ public partial class Mob : RigidBody2D
 
     private void SetInitialProperties()
     {
-        Vector2 spawnPosition = GetRandomSpawnPosition();
+        var spawnPosition = GetRandomSpawnPosition();
         Position = spawnPosition;
 
-        Vector2 direction = GetDirectionToOppositeSide(spawnPosition);
+        var direction = GetDirectionToOppositeSide(spawnPosition);
         LinearVelocity = direction * Speed;
 
         _animatedSprite2D.FlipH = direction.X < 0;
@@ -39,9 +41,9 @@ public partial class Mob : RigidBody2D
 
     private Vector2 GetRandomSpawnPosition()
     {
-        Rect2 viewportRect = GetViewportRect();
+        var viewportRect = GetViewportRect();
 
-        uint side = GD.Randi() % 4;
+        var side = GD.Randi() % 4;
 
         return side switch
         {
@@ -55,26 +57,24 @@ public partial class Mob : RigidBody2D
 
     private Vector2 GetDirectionToOppositeSide(Vector2 spawnPosition)
     {
-        Rect2 viewportRect = GetViewportRect();
+        var viewportRect = GetViewportRect();
 
         if (spawnPosition.Y == 0)
         {
             return new Vector2(GD.Randf() * 2 - 1, 1).Normalized();
         }
-        else if (spawnPosition.Y == viewportRect.Size.Y)
+
+        if (Math.Abs(spawnPosition.Y - viewportRect.Size.Y) < 7)
         {
             return new Vector2(GD.Randf() * 2 - 1, -1).Normalized();
         }
-        else if (spawnPosition.X == 0)
+
+        if (spawnPosition.X == 0)
         {
             return new Vector2(1, GD.Randf() * 2 - 1).Normalized();
         }
-        else if (spawnPosition.X == viewportRect.Size.X)
-        {
-            return new Vector2(-1, GD.Randf() * 2 - 1).Normalized();
-        }
 
-        return Vector2.Zero;
+        return Math.Abs(spawnPosition.X - viewportRect.Size.X) < 7 ? new Vector2(-1, GD.Randf() * 2 - 1).Normalized() : Vector2.Zero;
     }
 
     private void OnVisibleOnScreenNotifier2DScreenExited()

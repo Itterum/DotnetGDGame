@@ -1,22 +1,24 @@
 using Godot;
 
+namespace DotnetGDGame.scripts;
+
 public partial class Player : Area2D
 {
     [Export]
-    public int Speed { get; set; } = 200;
+    private int Speed { get; set; } = 200;
 
     [Export]
-    public int DashSpeed { get; set; } = 600;
+    private int DashSpeed { get; set; } = 600;
 
     [Export]
-    public float DashDuration { get; set; } = 0.2f;
+    private float DashDuration { get; set; } = 0.2f;
 
     [Signal]
     public delegate void HitEventHandler();
 
-    private bool _isDashing = false;
-    private bool _isDead = false;
-    private float _dashTime = 0;
+    private bool _isDashing;
+    private bool _isDead;
+    private float _dashTime;
 
     private Vector2 _screenSize;
     private Vector2 _dashDirection = Vector2.Zero;
@@ -42,7 +44,7 @@ public partial class Player : Area2D
             return;
         }
 
-        Vector2 velocity = GetInputVelocity();
+        var velocity = GetInputVelocity();
 
         if (velocity != Vector2.Zero)
         {
@@ -92,7 +94,7 @@ public partial class Player : Area2D
 
     private static Vector2 GetInputVelocity()
     {
-        Vector2 velocity = Vector2.Zero;
+        var velocity = Vector2.Zero;
 
         if (Input.IsActionPressed("move_right")) velocity.X += 1;
         if (Input.IsActionPressed("move_left")) velocity.X -= 1;
@@ -127,13 +129,14 @@ public partial class Player : Area2D
             PlayAnimation("idle_side");
             _animatedSprite2D.FlipH = _lastDirection.X < 0;
         }
-        else if (_lastDirection.Y > 0)
+        else switch (_lastDirection.Y)
         {
-            PlayAnimation("idle_down");
-        }
-        else if (_lastDirection.Y < 0)
-        {
-            PlayAnimation("idle_up");
+            case > 0:
+                PlayAnimation("idle_down");
+                break;
+            case < 0:
+                PlayAnimation("idle_up");
+                break;
         }
     }
 
@@ -145,17 +148,18 @@ public partial class Player : Area2D
             _animatedSprite2D.FlipH = velocity.X < 0;
             _animatedSprite2D.FlipV = false;
         }
-        else if (velocity.Y > 0)
+        else switch (velocity.Y)
         {
-            PlayAnimation("down");
-            _animatedSprite2D.FlipH = false;
-            _animatedSprite2D.FlipV = false;
-        }
-        else if (velocity.Y < 0)
-        {
-            PlayAnimation("up");
-            _animatedSprite2D.FlipH = false;
-            _animatedSprite2D.FlipV = false;
+            case > 0:
+                PlayAnimation("down");
+                _animatedSprite2D.FlipH = false;
+                _animatedSprite2D.FlipV = false;
+                break;
+            case < 0:
+                PlayAnimation("up");
+                _animatedSprite2D.FlipH = false;
+                _animatedSprite2D.FlipV = false;
+                break;
         }
     }
 

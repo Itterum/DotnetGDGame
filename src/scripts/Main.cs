@@ -1,9 +1,11 @@
 using Godot;
 
+namespace DotnetGDGame.scripts;
+
 public partial class Main : Node
 {
     [Export]
-    public PackedScene MobScene { get; set; }
+    private PackedScene MobScene { get; set; }
 
     private int _score;
 
@@ -16,13 +18,13 @@ public partial class Main : Node
     {
     }
 
-    public void GameOver()
+    private void GameOver()
     {
         GetNode<Timer>("MobTimer").Stop();
         GetNode<Timer>("ScoreTimer").Stop();
     }
 
-    public void NewGame()
+    private void NewGame()
     {
         _score = 0;
 
@@ -60,7 +62,7 @@ public partial class Main : Node
             return;
         }
 
-        Mob mob = MobScene.Instantiate<Mob>();
+        var mob = MobScene.Instantiate<Mob>();
 
         if (mob == null)
         {
@@ -78,7 +80,7 @@ public partial class Main : Node
 
         mobSpawnLocation.ProgressRatio = GD.Randf();
 
-        float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2;
+        var direction = mobSpawnLocation.Rotation + Mathf.Pi / 2;
 
         mob.Position = mobSpawnLocation.Position;
 
